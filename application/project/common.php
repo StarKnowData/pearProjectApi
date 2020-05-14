@@ -24,8 +24,6 @@ function _uploadFile(File $file, $path_name = '', $saveName = false)
     $info = $file->move($path, $saveName);
     if ($info) {
         $filename = str_replace('\\', '/', $path . '/' . $info->getSaveName());
-//            $image = \think\Image::open($info->getRealPath());
-//            $image->thumb($image->width() / 2, $image->height() / 2)->save($filename);//压缩
         $site_url = FileService::getFileUrl($filename, 'local');
         $fileInfo = FileService::save($filename, file_get_contents($site_url));
         if ($fileInfo) {

@@ -18,7 +18,6 @@ class Notify extends BasicApi
     }
 
     /**
-     *
      * 列表
      * @return void
      * @throws \think\exception\DbException

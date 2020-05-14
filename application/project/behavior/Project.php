@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * SystemUser: vilson
- * Date: 2018/7/10
- * Time: 12:38
- */
-
 namespace app\project\behavior;
 
 

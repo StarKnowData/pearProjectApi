@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * SystemUser: vilson
- * Date: 2018/7/10
- * Time: 12:38
- */
-
 namespace app\project\behavior;
-
 
 use app\common\Model\CommonModel;
 use app\common\Model\Member;

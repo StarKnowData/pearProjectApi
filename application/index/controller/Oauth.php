@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Lenovo
- * Date: 2019/1/2
- * Time: 15:03
- */
 
 namespace app\index\controller;
 
@@ -41,7 +35,6 @@ class Oauth extends BasicApi
         $res = $app->conversation->sendCorporationMessage($params);
         echo json_encode($res);die;
         $userId = $app->user->getUseridByUnionid('3CnKFHEE7mX1hayPIHvpCwiEiE');
-//        echo json_encode($userId);die;
         $userId = $userId['userid'];
         $user = $app->user->get($userId, $lang = null);
         echo json_encode($user);die;
@@ -58,7 +51,6 @@ class Oauth extends BasicApi
         $currentMember = getCurrentMember();
         if (!$currentMember || $bindDingtalk) {
             $app = new Application(config('dingtalk.'));
-//            $response = $app->oauth->use('app-01')->redirect();
             $response = $app->oauth->use('app-01')->withQrConnect()->redirect();
             $redirect = $response->getTargetUrl();
             if ($redirectPath) {
@@ -153,7 +145,6 @@ class Oauth extends BasicApi
             if (isError($result)) {
                 Member::logout();
                 $targetUrl .= '&message=' . $result['msg'];
-//                $targetUrl = '/index.html#/member/login?logged=0&message='.$result['msg'];
             }
         } else {
             $targetUrl = '/index.html#/member/login?logged=0&message=钉钉登录失败，请重试';

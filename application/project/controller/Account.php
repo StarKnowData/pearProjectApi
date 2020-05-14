@@ -1,5 +1,4 @@
 <?php
-
 namespace app\project\controller;
 
 use app\common\Model\Member;
@@ -37,7 +36,6 @@ class Account extends BasicApi
     {
         $currentOrganizationCode = getCurrentOrganizationCode();
         $where = [['organization_code', '=', $currentOrganizationCode]];
-//        $where = [['organization_code', '=', $currentOrganizationCode], ['is_owner', '=', 0]];
         $params = Request::only('account,mobile,email,searchType,keyword');
         $departmentCode = Request::param('departmentCode');
         if (isset($params['keyword']) && $params['keyword']) {
@@ -131,7 +129,6 @@ class Account extends BasicApi
         if ($params['auth']) {
             //        //支持同时设置多个角色，默认关闭
             $data['authorize'] = intval($params['auth']);
-//            $data['authorize'] = implode(',', json_decode($params['auth']));
         } else {
             $data['authorize'] = '';
         }

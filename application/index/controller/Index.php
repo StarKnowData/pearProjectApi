@@ -22,7 +22,6 @@ use app\common\Model\TaskLike;
 use app\common\Model\TaskMember;
 use app\common\Model\TaskStages;
 use app\common\Model\Notify;
-use app\common\Model\TaskWorkflowRule;
 use controller\BasicApi;
 use Exception;
 use Firebase\JWT\JWT;
@@ -51,9 +50,8 @@ class Index extends BasicApi
      */
     public function install()
     {
-
         $dataPath = env('root_path') . 'data/';
-        //数据库配置文件
+        // 数据库配置文件
         $dbConfigFile = env('config_path') . 'database.php';
         // 锁定的文件
         $lockFile = $dataPath . 'install.lock';
@@ -96,7 +94,7 @@ class Index extends BasicApi
         try {
             ignore_user_abort();
             set_time_limit(0);
-            //检测能否读取安装文件
+            // 检测能否读取安装文件
             $sql = @file_get_contents($dataPath . 'pearproject.sql');
             if (!$sql) {
                 throw new Exception("无法读取data/pearproject.sql文件，请检查是否有读权限");
@@ -107,7 +105,7 @@ class Index extends BasicApi
                 PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
             ));
 
-            //检测是否支持innodb存储引擎
+            // 检测是否支持innodb存储引擎
             $pdoStatement = $pdo->query("SHOW VARIABLES LIKE 'innodb_version'");
             $result = $pdoStatement->fetch();
             if (!$result) {
@@ -131,14 +129,14 @@ class Index extends BasicApi
             };
 
             $config = preg_replace_callback("/'(hostname|database|username|password|hostport|prefix)'(\s+)=>(\s+)(.*),/", $callback, $config);
-            //检测能否成功写入数据库配置
+            // 检测能否成功写入数据库配置
             $result = @file_put_contents($dbConfigFile, $config);
 
             if (!$result) {
                 throw new Exception("无法写入数据库信息到config/database.php文件，请检查是否有写权限");
             }
 
-            //检测能否成功写入lock文件
+            // 检测能否成功写入lock文件
             $result = @file_put_contents($lockFile, 1);
             if (!$result) {
                 throw new Exception("无法写入安装锁定到data/install.lock文件，请检查是否有写权限");
@@ -175,8 +173,6 @@ class Index extends BasicApi
      */
     public function initData()
     {
-//        $member = Member::where("account = 123456")->find();
-//        $memberCode = $member['code'];
         Member::where("account <> '123456'")->delete();
         MemberAccount::where("id > 21")->delete();
         Collection::where("id > 0")->delete();
@@ -265,6 +261,5 @@ class Index extends BasicApi
         $group = $request::param('group');
         $messageService = new MessageService();
         $messageService->sendToGroup($group, '999', 'noticeGroup');
-//        $this->success('群组消息', $group);
     }
 }

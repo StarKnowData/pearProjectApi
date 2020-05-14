@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * SystemUser: vilson
- * Date: 2018/7/10
- * Time: 12:38
- */
-
 namespace app\project\behavior;
-
 
 use app\common\Model\Member;
 use app\common\Model\Notify;
@@ -209,7 +201,6 @@ class Task
                 logRecord($taskWorkflowRules);
                 if ($taskWorkflowRules) {
                     foreach ($taskWorkflowRules as $taskWorkflowRule) {
-//                        $taskWorkflowRule = TaskWorkflowRule::where(['object_code' => $taskStageCode, 'sort' => 1])->order('id asc')->find();
                         if ($taskWorkflowRule) {
                             $nextTaskWorkflowRule = TaskWorkflowRule::where(['workflow_code' => $taskWorkflowRule['workflow_code'], 'sort' => 2])->find();
                             if ($nextTaskWorkflowRule) {
@@ -311,7 +302,7 @@ class Task
                 }
             }
         }
-        //通知所有组织内的成员
+        // 通知所有组织内的成员
         if (isOpenNoticePush()) {
             $project = \app\common\Model\Project::where(['code' => $task['project_code']])->field('organization_code')->find();
             $messageService->sendToGroup($project['organization_code'], $socketGroupMessage, 'organization:task');

@@ -29,7 +29,8 @@
     "firebase/php-jwt": "^5.0",
     "phpmailer/phpmailer": "^6.0",
     "mingyoung/dingtalk": "^2.3.0",
-    "zoujingli/ip2region": "^1.0"
+    "zoujingli/ip2region": "^1.0",
+    "ext-pdo": "*"
   },
   "autoload": {
     "psr-4": {
