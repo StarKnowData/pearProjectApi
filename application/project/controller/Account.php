@@ -4,11 +4,16 @@ namespace app\project\controller;
 use app\common\Model\Member;
 use app\common\Model\MemberAccount;
 use app\common\Model\Organization;
+use app\common\Model\ProjectAuth;
 use app\common\Model\SystemConfig;
 use controller\BasicApi;
+use Exception;
 use service\FileService;
 use service\MessageService;
 use service\NodeService;
+use think\db\exception\DataNotFoundException;
+use think\db\exception\ModelNotFoundException;
+use think\exception\DbException;
 use think\facade\Request;
 use think\File;
 
@@ -30,7 +35,7 @@ class Account extends BasicApi
     /**
      * 账户列表
      * @return array|string
-     * @throws \think\exception\DbException
+     * @throws DbException
      */
     public function index()
     {
@@ -92,7 +97,7 @@ class Account extends BasicApi
             }
             unset($item);
         }
-        $list['authList'] = \app\common\Model\ProjectAuth::where(['status' => '1', 'organization_code' => $currentOrganizationCode])->select();
+        $list['authList'] = ProjectAuth::where(['status' => '1', 'organization_code' => $currentOrganizationCode])->select();
         $this->success('', $list);
     }
 
@@ -150,7 +155,7 @@ class Account extends BasicApi
             $this->error('该链接已失效');
         }
         if ($inviteLink['invite_type'] == 'organization') {
-            $organization = \app\common\Model\Organization::where(['code' => $inviteLink['source_code']])->find();
+            $organization = Organization::where(['code' => $inviteLink['source_code']])->find();
             if (!$organization) {
                 $this->error('该组织不存在');
             }
@@ -175,9 +180,9 @@ class Account extends BasicApi
 
     /**
      * 更新本团队内的头像和手机、邮箱
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws DataNotFoundException
+     * @throws ModelNotFoundException
+     * @throws DbException
      */
     public function _syncDetail()
     {
@@ -197,9 +202,9 @@ class Account extends BasicApi
     /**
      * 账户添加
      * @return array|string
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * @throws DataNotFoundException
+     * @throws ModelNotFoundException
+     * @throws DbException
      */
     public function add()
     {
@@ -248,8 +253,8 @@ class Account extends BasicApi
     {
         try {
             $result = $this->model->del(Request::post('accountCode'));
-        } catch (\Exception $e) {
-            $this->error($e->getMessage(), $e->getCode());;
+        } catch (Exception $e) {
+            $this->error($e->getMessage(), $e->getCode());
         }
         if ($result) {
             $this->success('', $result);
