@@ -8,7 +8,6 @@
 
 需要配合[前端项目](https://github.com/a54552239/pearProject)使用，链接：https://github.com/a54552239/pearProject
 
-有不明白的地方的可以加群：275264059，或者联系我，QQ：545522390
 ### 演示地址
 > [https://home.vilson.xyz](https://home.vilson.xyz)
 
@@ -17,7 +16,6 @@
 
 ### 友情链接 ###
 
-**JAVA版本：https://gitee.com/wulon/mk-teamwork-server**
 
 ### 界面截图 ###
 ![1](https://static.vilson.xyz/overview/1.png)
@@ -50,8 +48,5 @@
 ![1](https://cdn.nlark.com/yuque/0/2019/png/196196/1562467192538-6a4a949a-1dad-411e-af9f-ddec3f553276.png)
         
 ### 鼓励一下 ###
-<img src="https://static.vilson.xyz/pay/wechat.png" alt="Sample"  width="150" height="150">
-
-<img src="https://static.vilson.xyz/pay/alipay2.png" alt="Sample"  width="150" height="150">
 
 
