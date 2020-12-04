@@ -38,8 +38,17 @@ class Auth
             setCurrentOrganizationCode($currentOrganizationCode);
         }
         $authorization = $request->header('Authorization');
+
+        if(empty($authorization)){
+            $authorization = $request->header('REDIRECT_HTTP_AUTHORIZATION');
+        }
+        if(empty($authorization)){
+            $authorization = $request->server('REDIRECT_HTTP_AUTHORIZATION');
+        }
         $logined = false;
+
         $encodeData = '';
+
         if ($authorization) {
             $accessToken = explode(' ', $authorization)[1];
             $encodeData = JwtService::decodeToken($accessToken);
@@ -59,17 +68,15 @@ class Auth
                     $msg = ['code' => 401, 'msg' => 'accessToken过期'];
                     return json($msg);
                 }
-                $msg = ['code' => 401, 'msg' => '登录超时，请重新登录'];
+                $msg = ['code' => 401, 'msg' => '登录超时，请重新登录！'];
                 return json($msg);
             }
             if (!$logined) {
-                $msg = ['code' => 401, 'msg' => '登录超时，请重新登录'];
+                $msg = ['code' => 401, 'msg' => '登录超时，请重新登录！！'];
                 return json($msg);
             }
         }
         // 访问权限检查
-//        var_dump(auth($node, 'project'));
-//        die;
         if (!empty($access['is_auth']) && !auth($node, 'project')) {
             $nodeInfo = ProjectNode::where('node', $node)->find();
             return json(['code' => 403, 'msg' => '无权限操作资源['. $nodeInfo['title'] . ']，访问被拒绝']);

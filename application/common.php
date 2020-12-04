@@ -164,7 +164,10 @@ function error($errno, $message = '')
  */
 function isError($data)
 {
-    if (empty($data) || !is_array($data) || !array_key_exists('errno', $data) || (array_key_exists('errno', $data) && $data['errno'] == 0)) {
+    if (empty($data) ||
+        !is_array($data) ||
+        !array_key_exists('errno', $data) ||
+        (array_key_exists('errno', $data) && $data['errno'] == 0)) {
         return false;
     } else {
         return true;
