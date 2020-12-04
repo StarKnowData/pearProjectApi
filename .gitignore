@@ -7,7 +7,6 @@
 .env
 /runtime
 /log
-/vendor
 /data/install.lock
 /static/upload
 !composer.json
